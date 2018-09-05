@@ -3,8 +3,16 @@
 
 ### 版本更新记录
 1.0.0 首次发布
+1.0.1 示例添加、参数释疑
+
+### 示例
+[图片缩放](https://dev.ccgis.cn/gdbox/demo/img/)<br/>
+[矢量图形](https://dev.ccgis.cn/gdbox/demo/feature/)<br/>
+[文本数据](https://dev.ccgis.cn/gdbox/demo/text/)<br/>
+[标注对象](https://dev.ccgis.cn/gdbox/demo/marker/)
 
 ### get started（Demo/img文件夹）
+
 html\css\js部分
 ```
     // 样式声明
@@ -21,9 +29,9 @@ html\css\js部分
     // 容器声明
     <div id="hello-map"></div>
 
-    // js声明-容器声明
+    // js声明-容器声明（参数：zoom: 缩放比; {cx: cy:}：初始中心点位置；zoomMax、zoomMin：缩放的比例限制）
     let gMap = new gDBox.Map('hello-map', {zoom: 650, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10});
-    // 图片层实例\添加
+    // 图片层实例\添加（参数：img: 图片路径，支持base64; {w: 650, h: 445}：图片大小）
     let gImageLayer = new gDBox.Layer.Image('img', 'http://pic2.ooopic.com/12/29/07/36b1OOOPICa1.jpg', {w: 650, h: 445}, {zIndex: 1});
     gMap.addLayer(gImageLayer);
 
