@@ -12,9 +12,11 @@ let gMap = new gDBox.Map('map', {zoom: 650, cx: 0, cy: 0, zoomMax: 650 * 10, zoo
 
 gMap.events.on('hover', function (features) {
     if (!features.length) {
+        // 如果hover没有捕捉到任何feature矢量要素对象，则进行feature状态重置清空
         gFeatureLayer.resetFeatureStatus();
         return;
     }
+    // 如果捕捉到矢量要素，则进行高亮展示要素
     features[0].hover();
 });
 

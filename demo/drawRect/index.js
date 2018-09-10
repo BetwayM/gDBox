@@ -23,10 +23,10 @@ gMap.addLayer(gFeatureLayer);
 
 gMap.events.on('geometryDone', function (type, points) {
     // 生成元素唯一标志（时间戳）
-    const timestamp = new Date().getTime(); // 保持feature 与 label-text标注的一致性
+    const timestamp = new Date().getTime();
     // 元素添加展示
     let fea = new gDBox.Feature.Polygon(`feature-${timestamp}`, points, {
-        key: timestamp
+        name: '中国'
     }, gFetureStyle);
     gFeatureLayer.addFeature(fea);
 });

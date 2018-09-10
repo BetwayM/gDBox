@@ -95,7 +95,42 @@ html\css\js部分
     gMap.mLayer.addMarker(marker);
 ```
 
-### 矢量数据绘制（待补充）
+### hover事件监听（Demo/hover文件夹）
+```
+    gMap.events.on('hover', function (features) {
+        if (!features.length) {
+            gFeatureLayer.resetFeatureStatus();
+            return;
+        }
+        features[0].hover();
+    });
+```
+
+### 矢量数据绘制——矩形（Demo/drawRect文件夹）
+```
+    // 常用样式声明
+    const gFetureStyle = new gDBox.Style({strokeColor: '#0000FF'});
+
+    // 设置当前操作模式为‘drawRect’, 浏览状态对应mode为'pan'
+    gMap.setMode('drawRect', gFetureStyle);
+
+    // 矢量层实例\添加
+    let gFeatureLayer = new gDBox.Layer.Feature('featureLayer', {zIndex: 2, transparent: true});
+    gMap.addLayer(gFeatureLayer);
+
+    // 绘制完成事件监听
+    gMap.events.on('geometryDone', function (type, points) {
+        // 生成元素唯一标志（时间戳）
+        const timestamp = new Date().getTime();
+        // 元素添加展示
+        let fea = new gDBox.Feature.Polygon(`feature-${timestamp}`, points, {
+            name: '中国'
+        }, gFetureStyle);
+        gFeatureLayer.addFeature(fea);
+    });
+```
+
+### 矢量数据绘制（TODOS）
 目前支持绘制矩形<br>
 
 
