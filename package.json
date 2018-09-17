@@ -1,6 +1,6 @@
 {
   "name": "gdbox.js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "旨在解决图片浏览（平移、缩放）、矢量数据绘制及标注、文本数据展示等系列功能于一体的简单易用组件",
   "main": "gDBox.pkg.min.js",
   "scripts": {

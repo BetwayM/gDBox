@@ -5,7 +5,8 @@
 /* globals gDBox */
 
 // 常用样式声明
-const gFetureStyle = new gDBox.Style({strokeColor: '#0000FF'});
+const gFetureStyle = new gDBox.Style({strokeColor: '#0000FF', lineDash: true, lineWeight: 2});
+const gFetureHoverStyle = new gDBox.Style({strokeColor: '#FF0000', lineDash: false, lineWeight: 2});
 
 // 容器对象声明
 let gMap = new gDBox.Map('map', {zoom: 650, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10});
@@ -17,7 +18,7 @@ gMap.events.on('hover', function (features) {
         return;
     }
     // 如果捕捉到矢量要素，则进行高亮展示要素
-    features[0].hover();
+    features[0].hover(gFetureHoverStyle);
 });
 
 // 图片层实例\添加

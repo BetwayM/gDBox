@@ -4,6 +4,7 @@
 ### 版本更新记录
 1.0.0 首次发布
 1.0.1 示例添加、参数释疑
+1.0.3 hover样式修改
 
 ### 示例
 [图片缩放](https://dev.ccgis.cn/gdbox/demo/img/)<br/>
@@ -102,7 +103,7 @@ html\css\js部分
             gFeatureLayer.resetFeatureStatus();
             return;
         }
-        features[0].hover();
+        features[0].hover(gStyle);
     });
 ```
 
