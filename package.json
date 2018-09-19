@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/dingyang9642/gDBox/issues"
   },
-  "homepage": "https://github.com/dingyang9642/gDBox#readme"
+  "homepage": "https://github.com/dingyang9642/gDBox#readme",
+  "devDependencies": {
+    "gulp-umd": "^2.0.0"
+  }
 }

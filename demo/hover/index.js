@@ -20,6 +20,9 @@ gMap.events.on('hover', function (features) {
     // 如果捕捉到矢量要素，则进行高亮展示要素
     features[0].hover(gFetureHoverStyle);
 });
+// gMap.events.on('mouseDown', function () {
+//     return false;
+// });
 
 // 图片层实例\添加
 let gImageLayer = new gDBox.Layer.Image('img', 'http://pic2.ooopic.com/12/29/07/36b1OOOPICa1.jpg', {w: 650, h: 445}, {zIndex: 1});
