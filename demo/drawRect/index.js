@@ -21,7 +21,7 @@ gMap.addLayer(gImageLayer);
 let gFeatureLayer = new gDBox.Layer.Feature('featureLayer', {zIndex: 2, transparent: true});
 gMap.addLayer(gFeatureLayer);
 
-gMap.events.on('geometryDone', function (type, points) {
+gMap.events.on('geometryDrawDone', function (type, points) {
     // 生成元素唯一标志（时间戳）
     const timestamp = new Date().getTime();
     // 元素添加展示
@@ -29,6 +29,10 @@ gMap.events.on('geometryDone', function (type, points) {
         name: '中国'
     }, gFetureStyle);
     gFeatureLayer.addFeature(fea);
+});
+gMap.events.on('geometryEditDone', (type, activeFeature, points) => {
+    activeFeature.update({points});
+    activeFeature.show();
 });
 
 

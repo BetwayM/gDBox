@@ -5,7 +5,7 @@
 /* globals gDBox */
 
 // 常用样式声明
-const gFetureStyle = new gDBox.Style({strokeColor: '#0000FF'});
+const gFetureStyle = new gDBox.Style({strokeColor: '#0000FF', lineWeight: 2});
 
 // 容器对象声明
 let gMap = new gDBox.Map('map', {zoom: 650, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10});
@@ -21,7 +21,7 @@ gMap.addLayer(gImageLayer);
 let gFeatureLayer = new gDBox.Layer.Feature('featureLayer', {zIndex: 2, transparent: true});
 gMap.addLayer(gFeatureLayer);
 
-gMap.events.on('geometryDone', function (type, points) {
+gMap.events.on('geometryDrawDone', function (type, points) {
     // 生成元素唯一标志（时间戳）
     const timestamp = new Date().getTime();
     // 元素添加展示
@@ -30,17 +30,26 @@ gMap.events.on('geometryDone', function (type, points) {
     }, gFetureStyle);
     gFeatureLayer.addFeature(fea);
 });
+gMap.events.on('geometryEditDone', function (type, activeFeature, points) {
+    activeFeature.update({points});
+    activeFeature.show();
+});
+// feature-reset监听
+gMap.events.on('featureStatusReset', function () {
+    gMap.mLayer.removeAllMarkers();
+});
 
-gMap.events.on('featureSelected', function (features) {
-    if (!features.length) {
-        // 如果hover没有捕捉到任何feature矢量要素对象，则进行feature状态重置清空
-        gFeatureLayer.resetFeatureStatus();
-        return;
-    }
-    // 如果捕捉到矢量要素，则进行高亮展示要素
-    features[0].active();
+gMap.events.on('geometryEditing', function (type, feature, points) {
+    if (!gMap.mLayer) return;
+    const marker = gMap.mLayer.getMarkerById(`marker-${feature.id}`);
+    if (!marker) return;
+    const bounds = gDBox.Util.getBounds(points);
+    const leftTopPoint = bounds[0]; // 边界坐上角坐标
+    marker.update({x: leftTopPoint.x, y: leftTopPoint.y});
+});
 
-    let cFeature = features[0];
+gMap.events.on('featureSelected', function (feature) {
+    let cFeature = feature;
     // 删除按钮添加
     const featureBounds = cFeature.getBounds();
     const leftTopPoint = featureBounds[0]; // 边界坐上角坐标
@@ -65,4 +74,6 @@ gMap.events.on('featureSelected', function (features) {
     });
 });
 
-
+window.onresize = function () {
+    gMap && gMap.resize();
+};

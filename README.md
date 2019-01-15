@@ -4,7 +4,7 @@
 
 > 1. 解决图片浏览（无极缩放、平移）
 > 2. 矢量数据、文本、标注展示
-> 3. 矢量数据绘制、编辑（属性数据）
+> 3. 矢量数据绘制、编辑（目前支持矩形，后续会不断拓展补充）
 
 ### 版本更新记录
 1.0.0 首次发布<br>
@@ -54,7 +54,7 @@ html\css\js部分
     gMap.addLayer(gFeatureLayer);
 
     // 矢量要素实例\添加
-    const fea = new gDBox.Feature.Polygon([
+    const fea = new gDBox.Feature.Polygon('id', [
         {x: 10, y: 10},
         {x: 50, y: 10},
         {x: 40, y: 50},
@@ -103,16 +103,10 @@ html\css\js部分
 
 ### hover事件监听（Demo/hover文件夹）
 ```
-    gMap.events.on('hover', function (features) {
-        if (!features.length) {
-            gFeatureLayer.resetFeatureStatus();
-            return;
-        }
-        features[0].hover(gStyle);
-    });
+    矢量图形默认自带hover效果（在原图形基础之上加宽边框显示）
 ```
 
-### 矢量数据绘制——矩形（Demo/drawRect文件夹）
+### 矢量数据绘制、编辑——矩形（Demo/drawRect文件夹）
 ```
     // 常用样式声明
     const gFetureStyle = new gDBox.Style({strokeColor: '#0000FF'});
@@ -125,7 +119,7 @@ html\css\js部分
     gMap.addLayer(gFeatureLayer);
 
     // 绘制完成事件监听
-    gMap.events.on('geometryDone', function (type, points) {
+    gMap.events.on('geometryDrawDone', function (type, points) {
         // 生成元素唯一标志（时间戳）
         const timestamp = new Date().getTime();
         // 元素添加展示
@@ -134,10 +128,25 @@ html\css\js部分
         }, gFetureStyle);
         gFeatureLayer.addFeature(fea);
     });
+    // 因为自带编辑功能，故需要以下代码
+    gMap.events.on('geometryEditDone', (type, activeFeature, points) => {
+        activeFeature.update({points});
+        activeFeature.show();
+    });
 ```
 
-### 矢量数据绘制（TODOS）
-目前支持绘制矩形<br>
+### 矢量数据编辑——矩形（Demo/editRect文件夹）
+```
+    // 示例同drawRect，但此处添加‘编辑中’事件监听，供开发者在图形编辑过程中进行自定义事件
+    gMap.events.on('geometryEditing', function (type, feature, points) {
+        if (!gMap.mLayer) return;
+        const marker = gMap.mLayer.getMarkerById(`marker-${feature.id}`);
+        if (!marker) return;
+        const bounds = gDBox.Util.getBounds(points);
+        const leftTopPoint = bounds[0]; // 边界坐上角坐标
+        marker.update({x: leftTopPoint.x, y: leftTopPoint.y});
+    });
+```
 
 
 如有其他需要，请联系我dingyang9642@126.com

@@ -19,7 +19,7 @@ let gFeatureLayer = new gDBox.Layer.Feature('featureLayer', {zIndex: 2, transpar
 gMap.addLayer(gFeatureLayer);
 
 // 矢量要素实例\添加
-const fea = new gDBox.Feature.Polygon([
+const fea = new gDBox.Feature.Polygon('id-name', [
     {x: 10, y: 10},
     {x: 50, y: 10},
     {x: 40, y: 50},

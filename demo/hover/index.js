@@ -11,19 +11,6 @@ const gFetureHoverStyle = new gDBox.Style({strokeColor: '#FF0000', lineDash: fal
 // 容器对象声明
 let gMap = new gDBox.Map('map', {zoom: 650, cx: 0, cy: 0, zoomMax: 650 * 10, zoomMin: 650 / 10});
 
-gMap.events.on('hover', function (features) {
-    if (!features.length) {
-        // 如果hover没有捕捉到任何feature矢量要素对象，则进行feature状态重置清空
-        gFeatureLayer.resetFeatureStatus();
-        return;
-    }
-    // 如果捕捉到矢量要素，则进行高亮展示要素
-    features[0].hover(gFetureHoverStyle);
-});
-// gMap.events.on('mouseDown', function () {
-//     return false;
-// });
-
 // 图片层实例\添加
 let gImageLayer = new gDBox.Layer.Image('img', 'http://pic2.ooopic.com/12/29/07/36b1OOOPICa1.jpg', {w: 650, h: 445}, {zIndex: 1});
 gMap.addLayer(gImageLayer);
