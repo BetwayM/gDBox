@@ -1,0 +1,25 @@
+{
+  "name": "gdbox.js",
+  "version": "1.0.5",
+  "description": "解决图片浏览;矢量数据、文本、标注展示;矢量数据绘制、编辑",
+  "main": "gDBox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dingyang9642/gDBox.git"
+  },
+  "keywords": [
+    "json",
+    "query",
+    "format",
+    "delete"
+  ],
+  "author": "dingyang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dingyang9642/gDBox/issues"
+  },
+  "homepage": "https://github.com/dingyang9642/gDBox#readme"
+}
